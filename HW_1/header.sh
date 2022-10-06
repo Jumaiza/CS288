@@ -7,7 +7,6 @@ do
 
     if [ "$firstThreeChars" != "\"\"\"" ] && [ "$firstThreeChars" != "'''" ]
     then
-        echo $file
         username=`whoami`
         courseSection="CS288 005"
         currentDate=`date +"%m/%d/%Y"`
