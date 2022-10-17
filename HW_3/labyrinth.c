@@ -136,7 +136,7 @@ int main(int argc, char* argv[]) {
         else printf("        |");
 
         for(j=0; j<13; j++){
-            printf(game[i][j]);
+            printf("%s",game[i][j]);
         }
 
         if(i==1)printf("|--6        Player (H)");
