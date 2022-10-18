@@ -3,17 +3,17 @@
 #include <string.h>
 
 int getColumnIndex(char column){
-    if(column=='a'){
+    if(column=='a' || column=='A'){
         return 2;
-    }else if(column=='b'){
+    }else if(column=='b' || column=='B'){
         return 4;
-    }else if(column=='c'){
+    }else if(column=='c' || column=='C'){
         return 6;
-    }else if(column=='d'){
+    }else if(column=='d' || column=='D'){
         return 8;
-    }else if(column=='e'){
+    }else if(column=='e' || column=='E'){
         return 10;
-    }else if(column=='f'){
+    }else if(column=='f' || column=='F'){
         return 12;
     }else{
         return -1;
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
 
         while (gameAlive && fgets(line, sizeof(line), file)){
            
-            if(strcmp(line,"N\n")==0){
+            if(strcmp(line,"N\n")==0 || strcmp(line,"n\n")==0){
 
                 if(turn == 'T'){
 
@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
                         turn = 'T';
                     }
                 }
-            }else if(strcmp(line,"S\n")==0){
+            }else if(strcmp(line,"S\n")==0 || strcmp(line,"s\n")==0){
                 if(turn == 'T'){
 
                     if(strcmp(game[TY+1][TX],"---")==0 || (strcmp(game[TY+2][TX]," H ")==0 && strcmp(game[TY+3][TX],"---")==0)){
@@ -137,7 +137,7 @@ int main(int argc, char* argv[]) {
                     }
                 }
 
-            }else if (strcmp(line,"W\n")==0){
+            }else if (strcmp(line,"W\n")==0 || strcmp(line,"w\n")==0){
 
                 if(turn == 'T'){
 
@@ -175,7 +175,7 @@ int main(int argc, char* argv[]) {
                     }
                 }
 
-            }else if(strcmp(line,"E\n")==0){
+            }else if(strcmp(line,"E\n")==0 || strcmp(line,"e\n")==0){
 
                 if(turn == 'T'){
 
@@ -213,7 +213,7 @@ int main(int argc, char* argv[]) {
                     }
                 }
 
-            }else if(strcmp(line,"NE\n")==0){
+            }else if(strcmp(line,"NE\n")==0 || strcmp(line,"ne\n")==0  || strcmp(line,"nE\n")==0  || strcmp(line,"Ne\n")==0){
                 if(turn == 'T'){
 
                     if(strcmp(game[TY-1][TX],"   ")==0 && (strcmp(game[TY-2][TX]," H ")==0 && strcmp(game[TY-3][TX],"---")==0)
@@ -240,7 +240,7 @@ int main(int argc, char* argv[]) {
                         continue;
                     }
                 }
-            }else if(strcmp(line,"NW\n")==0){
+            }else if(strcmp(line,"NW\n")==0 || strcmp(line,"nw\n")==0  || strcmp(line,"nW\n")==0  || strcmp(line,"Nw\n")==0){
                 if(turn == 'T'){
 
                     if(strcmp(game[TY-1][TX],"   ")==0 && (strcmp(game[TY-2][TX]," H ")==0 && strcmp(game[TY-3][TX],"---")==0)
@@ -268,7 +268,7 @@ int main(int argc, char* argv[]) {
                     }
 
                 }
-            }else if(strcmp(line,"SE\n")==0){
+            }else if(strcmp(line,"SE\n")==0 || strcmp(line,"se\n")==0  || strcmp(line,"sE\n")==0  || strcmp(line,"Se\n")==0){
                 if(turn == 'T'){
 
                     if(strcmp(game[TY+1][TX],"   ")==0 && (strcmp(game[TY+2][TX]," H ")==0 && strcmp(game[TY+3][TX],"---")==0)
@@ -295,7 +295,7 @@ int main(int argc, char* argv[]) {
                         continue;
                     }
                 }
-            }else if(strcmp(line,"SW\n")==0){
+            }else if(strcmp(line,"SW\n")==0 || strcmp(line,"sw\n")==0  || strcmp(line,"sW\n")==0  || strcmp(line,"Sw\n")==0){
                 if(turn == 'T'){
 
                     if(strcmp(game[TY+1][TX],"   ")==0 && (strcmp(game[TY+2][TX]," H ")==0 && strcmp(game[TY+3][TX],"---")==0)
@@ -322,7 +322,7 @@ int main(int argc, char* argv[]) {
                         continue;
                     }
                 }
-            }else if(line[0]=='V' && strlen(line)==5){
+            }else if((line[0]=='V' || line[0]=='v') && strlen(line)==5){
 
                 char column = line[2];
                 int row = line[3] - '0';
@@ -350,7 +350,7 @@ int main(int argc, char* argv[]) {
                 }else
                     continue;
                  
-            }else if(line[0]=='H' && strlen(line)==5){
+            }else if((line[0]=='H' || line[0]=='h') && strlen(line)==5){
 
                 char column = line[2];
                 int row = line[3] - '0';
