@@ -87,14 +87,7 @@ void SLL_append(struct List *list, int item) {
     }
 }
 int main() {
-    int i;
     struct List list = SLL_new();
-    for (i = 0; i < 5; ++i) {
-        SLL_push(&list, i);
-        SLL_append(&list, i);
-    }
-
-    printf("%d\n",SLL_contains(&list,2));
-
+    SLL_pop(&list);
     return 1;
 }
