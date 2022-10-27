@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-/* self-referential structure */
+#include <string.h>
+
 struct Node {
     char *key;
     int value;
@@ -20,9 +21,6 @@ int SLL_length(struct List *list) {
     struct Node *p;
     int n = 0;
     for (p = list->head; p != NULL; p = p->next) {
-        printf("%d: ",n+1);
-        printf(p->key);
-        printf(", %d\n",p->value);
         ++n;
     }
     return n;
@@ -62,15 +60,67 @@ void SLL_push(struct List *list, char *key, int value){
     list->head = node;
 }
 
-void SLL_insert(struct List *list, char *key, int value);
+void SLL_insert(struct List *list, char *key, int value){
+    /* insert node in ascending order */
+    struct Node *newNode = malloc(sizeof(struct Node));
+    struct Node *current;
+    newNode->key = key;
+    newNode->value = value;
+    newNode->next = NULL;
+
+    if(SLL_empty(list)){
+        list->head = newNode;
+        return;
+
+    }else if(strcmp(list->head->key, key) > 0){
+        free(newNode);
+        SLL_push(list,key,value);
+        
+    }else if(SLL_length(list)==1){
+        list->head->next=newNode;
+
+    }else{
+        for (current = list->head; current != NULL; current = current->next) {
+
+            if(current->next==NULL){
+                current->next=newNode;
+                break;
+            }
+
+            if(strcmp(current->next->key, newNode->key) > 0){
+                newNode->next = current->next;
+                current->next = newNode;
+                break;
+            }
+        }
+
+    }
+}
+
+void SLL_toString(struct List *list){
+
+    struct Node *p;
+    int n = 0;
+    for (p = list->head; p != NULL; p = p->next) {
+        printf("%d: ",n);
+        printf(p->key);
+        printf(", %d\n",p->value);
+        ++n;
+    }
+}
 
 int main(){
     
     struct List list = SLL_new();
 
-    SLL_push(&list, "234534512", 78);
-    SLL_push(&list,"89778",95);
-    SLL_length(&list);
+    SLL_insert(&list,"16",34);
+    SLL_insert(&list,"13",34);
+    SLL_insert(&list,"11",34);
+    SLL_insert(&list,"19",34);
+    SLL_pop(&list,NULL,NULL);
+    SLL_push(&list,"345",436);
+
+    SLL_toString(&list);
 
     return 0;
 }
