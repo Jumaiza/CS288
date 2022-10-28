@@ -56,21 +56,25 @@ void SLL_push(struct List *list, char *key, int value){
     struct Node *node = malloc(sizeof(struct Node));
     node->key = key;
     node->value = value;
-    node->next = list->head;
+    node->next = NULL;
+
+    if(SLL_empty(list)==0){
+        node->next = list->head;
+    }
     list->head = node;
+
 }
 
 void SLL_insert(struct List *list, char *key, int value){
     /* insert node in ascending order */
     struct Node *newNode = malloc(sizeof(struct Node));
-    struct Node *current;
     newNode->key = key;
     newNode->value = value;
     newNode->next = NULL;
 
     if(SLL_empty(list)){
-        list->head = newNode;
-        return;
+        free(newNode);
+        SLL_push(list,key,value);
 
     }else if(strcmp(list->head->key, key) > 0){
         free(newNode);
@@ -80,6 +84,7 @@ void SLL_insert(struct List *list, char *key, int value){
         list->head->next=newNode;
 
     }else{
+        struct Node *current;
         for (current = list->head; current != NULL; current = current->next) {
 
             if(current->next==NULL){
@@ -94,7 +99,7 @@ void SLL_insert(struct List *list, char *key, int value){
             }
         }
 
-    }
+    } 
 }
 
 void SLL_toString(struct List *list){
@@ -103,24 +108,46 @@ void SLL_toString(struct List *list){
     int n = 0;
     for (p = list->head; p != NULL; p = p->next) {
         printf("%d: ",n);
-        printf(p->key);
-        printf(", %d\n",p->value);
+        printf("%s",p->key);
+        printf("->%d\n",p->value);
         ++n;
     }
+    printf("\n");
 }
 
-int main(){
-    
+int main(int argc, char* argv[]){
+
     struct List list = SLL_new();
+    int i;
+    for(i = 1; i < argc-1; i++){
 
-    SLL_insert(&list,"16",34);
-    SLL_insert(&list,"13",34);
-    SLL_insert(&list,"11",34);
-    SLL_insert(&list,"19",34);
-    SLL_pop(&list,NULL,NULL);
-    SLL_push(&list,"345",436);
+        FILE * file = fopen(argv[i],"r");
+        char row[256];
 
-    SLL_toString(&list);
+        while(fgets(row, sizeof(row), file)){
+
+            char *studentID = strtok(row,",");
+            int grade = atoi(strtok(NULL,","));
+            SLL_insert(&list,studentID,grade);
+            SLL_toString(&list);
+            studentID = "";
+        }
+    }
 
     return 0;
 }
+
+/* int main(){
+
+    printf("%d\n",strcmp("11981A-21","10012B-22"));
+    struct List list = SLL_new();
+    char *id1 = "1032";
+    char *id2 = "2232";
+    SLL_insert(&list,id1,55);
+    SLL_insert(&list,id2,75);
+    char *id3 = "2132";
+    SLL_insert(&list,id3,75);
+
+    SLL_toString(&list);
+
+} */
