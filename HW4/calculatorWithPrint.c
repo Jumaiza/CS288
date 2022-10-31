@@ -156,12 +156,27 @@ void writeFile(struct List *list, char* fileName){
     fclose(writeFile);
 }
 
+void SLL_toString(struct List *list){
+
+    struct Node *p;
+    int n = 0;
+    for (p = list->head; p != NULL; p = p->next) {
+        printf("%d: ",n);
+        printf("%s",p->key);
+        printf("->%d\n",p->value);
+        ++n;
+    }
+    printf("\n");
+}
+
 int main(int argc, char* argv[]){
 
     struct List list = SLL_new();
     readFile(&list,argv[argc-4]);
     readFile(&list,argv[argc-3]);
     readFile(&list,argv[argc-2]);
+
+    SLL_toString(&list);
 
     writeFile(&list,argv[argc-1]);
 
