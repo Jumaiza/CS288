@@ -109,7 +109,7 @@ void SLL_insert(struct List *list, char *key, int value){
 void readFile(struct List *list, char* fileName){
 
     FILE * file = fopen(fileName,"r");
-    char row[256];
+    char row[256+1+sizeof(int)];
 
     while(fgets(row, sizeof(row), file)){
 
@@ -128,7 +128,6 @@ void writeFile(struct List *list, char* fileName){
     char currentID[256];
     int currentGrade;
     int sum = 0;
-    char finalOutput[256];
 
     while(!SLL_empty(list)){
 
@@ -138,6 +137,7 @@ void writeFile(struct List *list, char* fileName){
         if(SLL_empty(list) || strcmp(currentID, list->head->key) != 0){
 
             int finalGrade = (int)((sum/3.0)+0.5);
+            char finalOutput[sizeof(currentID)+sizeof(finalGrade)];
             sprintf(finalOutput,"%s,%d\n",currentID,finalGrade);
             fputs(finalOutput,writeFile);
             sum = 0;
