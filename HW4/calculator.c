@@ -19,6 +19,7 @@ struct List SLL_new() {
     return list;
 }
 int SLL_length(struct List *list) {
+
     struct Node *p;
     int n = 0;
     for (p = list->head; p != NULL; p = p->next) {
@@ -31,40 +32,43 @@ int SLL_empty(struct List *list) {
 }
 
 void SLL_pop(struct List *list, char *key, int *value){
+
     struct Node *node = list->head;
     list->head = node->next;
 
-    if(key != NULL)
-        key = node->key;
-
-    if(value != NULL)
+    if(key != NULL){
+        strcpy(key,node->key);
+    }
+    if(value != NULL){
         *value = node->value;
+    }
 
     free(node->key);
     free(node);
 }
 
 void SLL_clear(struct List *list) {
-    /* remove all items from the list */
+
     while (!SLL_empty(list)) {
         SLL_pop(list,NULL,NULL);
     }
 }
 
 void SLL_push(struct List *list, char *key, int value){
+
     struct Node *node = malloc(sizeof(struct Node));
     node->key = key;
     node->value = value;
     node->next = NULL;
 
-    if(SLL_empty(list)==0){
+    if(!SLL_empty(list)){
         node->next = list->head;
     }
     list->head = node;
-
 }
 
 void SLL_insert(struct List *list, char *key, int value){
+
     struct Node *newNode = malloc(sizeof(struct Node));
     char *keyCopy = malloc(sizeof(char)*strlen(key));
     strcpy(keyCopy,key);
@@ -120,30 +124,24 @@ void readFile(struct List *list, char* fileName){
 
 void writeFile(struct List *list, char* fileName){
 
-    struct Node *currentNode;
-    int sum = 0;
-    char *currentID = NULL;
-    char finalOutput[256];
     FILE * writeFile = fopen(fileName,"w");
+    char currentID[256];
+    int currentGrade;
+    int sum = 0;
+    char finalOutput[256];
 
-    for (currentNode = list->head; currentNode != NULL; currentNode = currentNode->next) {
+    while(!SLL_empty(list)){
 
-        if(currentNode->next==NULL){
-            sum = sum + currentNode->value;
-        }
-        if(currentID==NULL){
-            currentID = currentNode->key;
-        }
-        else if(strcmp(currentID,currentNode->key) != 0 || currentNode->next==NULL){
+        SLL_pop(list,currentID,&currentGrade);
+        sum = sum + currentGrade;
+
+        if(SLL_empty(list) || strcmp(currentID, list->head->key) != 0){
 
             int finalGrade = (int)((sum/3.0)+0.5);
             sprintf(finalOutput,"%s,%d\n",currentID,finalGrade);
             fputs(finalOutput,writeFile);
-
-            currentID = currentNode->key;
             sum = 0;
         }
-        sum = sum + currentNode->value;
     }
 
     fclose(writeFile);
@@ -158,8 +156,6 @@ int main(int argc, char* argv[]){
     readFile(&list,argv[argc-2]);
 
     writeFile(&list,argv[argc-1]);
-
-    SLL_clear(&list);
 
     return 0;
 }
