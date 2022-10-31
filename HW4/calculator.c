@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 
 /* gcc -ansi -Wall -Wextra -Wpedantic -Werror calculator.c
 ./a.exe midterm01.csv midterm02.csv finalexam.csv finalgrade.csv */
@@ -118,7 +117,7 @@ void readFile(struct List *list, char* fileName){
 
         char *studentID = strtok(row,",");
         double doubleGrade = atof(strtok(NULL,","));
-        int grade = floor(doubleGrade+0.5);
+        int grade = (int)(doubleGrade+0.5);
         SLL_insert(list,studentID,grade);
     }
 
@@ -143,7 +142,7 @@ void writeFile(struct List *list, char* fileName){
         }
         else if(strcmp(currentID,currentNode->key) != 0 || currentNode->next==NULL){
 
-            int finalGrade = floor((sum/3.0)+0.5);
+            int finalGrade = (int)((sum/3.0)+0.5);
             sprintf(finalOutput,"%s,%d\n",currentID,finalGrade);
             fputs(finalOutput,writeFile);
 
