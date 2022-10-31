@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
+
+/* gcc -ansi -Wall -Wextra -Wpedantic -Werror calculator.c
+./a.exe midterm01.csv midterm02.csv finalexam.csv finalgrade.csv */
 
 struct Node {
     char *key;
@@ -41,6 +45,7 @@ void SLL_pop(struct List *list, char *key, int *value){
     if(value != NULL)
         *value = node->value;
 
+    free(node->key);
     free(node);
 }
 
@@ -68,17 +73,19 @@ void SLL_push(struct List *list, char *key, int value){
 void SLL_insert(struct List *list, char *key, int value){
     /* insert node in ascending order */
     struct Node *newNode = malloc(sizeof(struct Node));
-    newNode->key = key;
+    char *keyCopy = malloc(sizeof(char)*strlen(key));
+    strcpy(keyCopy,key);
+    newNode->key = keyCopy;
     newNode->value = value;
     newNode->next = NULL;
 
     if(SLL_empty(list)){
         free(newNode);
-        SLL_push(list,key,value);
+        SLL_push(list,keyCopy,value);
 
-    }else if(strcmp(list->head->key, key) > 0){
+    }else if(strcmp(list->head->key, newNode->key) > 0){
         free(newNode);
-        SLL_push(list,key,value);
+        SLL_push(list,keyCopy,value);
         
     }else if(SLL_length(list)==1){
         list->head->next=newNode;
@@ -99,7 +106,7 @@ void SLL_insert(struct List *list, char *key, int value){
             }
         }
 
-    } 
+    }
 }
 
 void SLL_toString(struct List *list){
@@ -117,37 +124,53 @@ void SLL_toString(struct List *list){
 
 int main(int argc, char* argv[]){
 
+    struct Node *currentNode;
+    int sum = 0;
+    char *currentID = NULL;
+    char finalOutput[256];
+    FILE * writeFile = fopen(argv[4],"w");
+
     struct List list = SLL_new();
     int i;
     for(i = 1; i < argc-1; i++){
 
-        FILE * file = fopen(argv[i],"r");
+        FILE * readFile = fopen(argv[i],"r");
         char row[256];
 
-        while(fgets(row, sizeof(row), file)){
+        while(fgets(row, sizeof(row), readFile)){
 
             char *studentID = strtok(row,",");
-            int grade = atoi(strtok(NULL,","));
+            double doubleGrade = atof(strtok(NULL,","));
+            int grade = floor(doubleGrade+0.5);
             SLL_insert(&list,studentID,grade);
-            SLL_toString(&list);
-            studentID = "";
         }
+
+        fclose(readFile);
     }
+    
+    SLL_toString(&list);
+
+    for (currentNode = list.head; currentNode != NULL; currentNode = currentNode->next) {
+
+        if(currentNode->next==NULL){
+            sum = sum + currentNode->value;
+        }
+        if(currentID==NULL){
+            currentID = currentNode->key;
+        }
+        else if(strcmp(currentID,currentNode->key) != 0 || currentNode->next==NULL){
+
+            int finalGrade = floor((sum/3.0)+0.5);
+            sprintf(finalOutput,"%s,%d\n",currentID,finalGrade);
+            fputs(finalOutput,writeFile);
+
+            currentID = currentNode->key;
+            sum = 0;
+        }
+        sum = sum + currentNode->value;
+    }
+
+    fclose(writeFile);
 
     return 0;
 }
-
-/* int main(){
-
-    printf("%d\n",strcmp("11981A-21","10012B-22"));
-    struct List list = SLL_new();
-    char *id1 = "1032";
-    char *id2 = "2232";
-    SLL_insert(&list,id1,55);
-    SLL_insert(&list,id2,75);
-    char *id3 = "2132";
-    SLL_insert(&list,id3,75);
-
-    SLL_toString(&list);
-
-} */
