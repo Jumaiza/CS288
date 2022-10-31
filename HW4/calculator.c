@@ -159,6 +159,7 @@ void writeFile(struct List *list, char* fileName){
 int main(int argc, char* argv[]){
 
     struct List list = SLL_new();
+    
     readFile(&list,argv[argc-4]);
     readFile(&list,argv[argc-3]);
     readFile(&list,argv[argc-2]);
