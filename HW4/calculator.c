@@ -110,12 +110,15 @@ void readFile(struct List *list, char* fileName){
 
     FILE * file = fopen(fileName,"r");
     char row[256+1+sizeof(int)];
+    char *studentID;
+    double doubleGrade;
+    int grade;
 
     while(fgets(row, sizeof(row), file)){
 
-        char *studentID = strtok(row,",");
-        double doubleGrade = atof(strtok(NULL,","));
-        int grade = (int)(doubleGrade+0.5);
+        studentID = strtok(row,",");
+        doubleGrade = atof(strtok(NULL,","));
+        grade = (int)(doubleGrade+0.5);
         SLL_insert(list,studentID,grade);
     }
 
