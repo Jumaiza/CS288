@@ -2,8 +2,6 @@
 #include <time.h>
 #include <stdlib.h>
 
-// Radix Sort in C Programming
-
 #include <stdio.h>
 
 // Function to get the largest element from an array
@@ -19,35 +17,37 @@ int getMax(int array[], int n) {
 void countingSort(int array[], int size, int place) {
   int output[size + 1];
   int max = (array[0] / place) % 10;
+  int i, j, k, l, m, n;
 
-  for (int i = 1; i < size; i++) {
+  for (i = 1; i < size; i++) {
     if (((array[i] / place) % 10) > max)
       max = array[i];
   }
   int count[max + 1];
 
-  for (int i = 0; i < max; ++i)
-    count[i] = 0;
+  for (j = 0; j < max; ++j)
+    count[j] = 0;
 
   // Calculate count of elements
-  for (int i = 0; i < size; i++)
-    count[(array[i] / place) % 10]++;
+  for (k = 0; k < size; k++)
+    count[(array[k] / place) % 10]++;
     
   // Calculate cumulative count
-  for (int i = 1; i < 10; i++)
-    count[i] += count[i - 1];
+  for (l = 1; l < 10; l++)
+    count[l] += count[l - 1];
 
   // Place the elements in sorted order
-  for (int i = size - 1; i >= 0; i--) {
-    output[count[(array[i] / place) % 10] - 1] = array[i];
-    count[(array[i] / place) % 10]--;
+  for (m = size - 1; m >= 0; m--) {
+    output[count[(array[m] / place) % 10] - 1] = array[m];
+    count[(array[m] / place) % 10]--;
   }
 
-  for (int i = 0; i < size; i++)
-    array[i] = output[i];
+  for (n = 0; n < size; n++)
+    array[n] = output[n];
 }
 
-void radixSort(int array[], int size) {
+// Main function to implement radix sort
+void radixsort(int array[], int size) {
   // Get maximum element
   int max = getMax(array, size);
 
@@ -56,33 +56,33 @@ void radixSort(int array[], int size) {
     countingSort(array, size, place);
 }
 
-void arrToSting(int a[],int n){
+void arrToSting(int *a,int n){
     int i;
     for(i = 0; i<n; i++){
-        printf("%d, ",a[i]);
+        printf("%d, ",*(a+i));
     }
-    printf("\n");
+    printf("\n\n");
 }
-
 int main(){
 
     clock_t start, end;
     double executionTime;
-    int size = 10000;
-    int a[10000];
+    int size = 1000000;
+    int* a = (int*) malloc(size*sizeof(int));
     int i;
     printf("Data Set Size: %d\n",size);
 
     for(i = 0; i<size; i++){
-        a[i] = rand() % 100;
+        *(a + i) = rand();
     }
     
     start = clock();
-    radixSort(a,size);
+    radixsort(a,size);
     end = clock();
-        
+    free(a);
+
     executionTime = ((double) (end - start)) / CLOCKS_PER_SEC;
-    printf("Execution Time: %f\n\n",executionTime);
+    printf("Execution Time: %f\n",executionTime);
 
     return 0;
 

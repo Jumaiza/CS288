@@ -2,9 +2,15 @@
 #include <time.h>
 #include <stdlib.h>
 
-void selectionSort(int a[], int size){
+void swap(int *first, int *second){
+    int temp = *first;
+    *first = *second;
+    *second = temp;
+}
 
-    int i,j,min_pos, temp;
+void selectionSort(int *a, int size){
+
+    int i,j,min_pos;
 
     for(i = 0; i<size-1; i++){
 
@@ -16,18 +22,16 @@ void selectionSort(int a[], int size){
         }
         if(min_pos!=i){
 
-            temp = a[i];
-            a[i] = a[min_pos];
-            a[min_pos] = temp;
+            swap(a + i, a + min_pos);
         }
 
     }
 }
 
-void arrToSting(int a[],int n){
+void arrToSting(int *a,int n){
     int i;
     for(i = 0; i<n; i++){
-        printf("%d, ",a[i]);
+        printf("%d, ",*(a+i));
     }
     printf("\n");
 }
@@ -36,21 +40,22 @@ int main(){
 
     clock_t start, end;
     double executionTime;
-    int size = 1000000;
-    int a[1000000];
+    int size = 100000;
+    int* a = (int*) malloc(size*sizeof(int));
     int i;
     printf("Data Set Size: %d\n",size);
 
     for(i = 0; i<size; i++){
-        a[i] = rand();
+        *(a + i) = rand();
     }
     
     start = clock();
     selectionSort(a,size);
     end = clock();
+    free(a);
 
     executionTime = ((double) (end - start)) / CLOCKS_PER_SEC;
-    printf("Execution Time: %f\n\n",executionTime);
+    printf("Execution Time: %f\n",executionTime);
 
     return 0;
 

@@ -74,7 +74,8 @@ void SLL_push(struct List *list, int item) {
     list->head = node;
 }
 void SLL_append(struct List *list, int item) {
-    /* append the item to the end of the list */
+    /* append the item to the end of the list 
+    yo whats good man  how are you bnro*/
     if (SLL_empty(list)) {
         SLL_push(list, item);
     }
