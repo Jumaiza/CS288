@@ -1,87 +1,150 @@
+/*Implementation of Radix sort via queue in C. 
+	This implementation works with integers*/
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
+#include <time.h>
+#define MAX_BUCKETS 10
+typedef int TYPE;
+typedef struct node_st { 
+	TYPE inf;
+	struct node_st *pnext;
+} NODE;
+typedef struct queue_st {
+	NODE *pbegin, *pend;
+} QUEUE;
 
-#include <stdio.h>
+void init_queue(QUEUE *);
+NODE *make_node(TYPE);
+void inqueue(QUEUE *, TYPE );
+TYPE dequeue(QUEUE *);
+int is_empty(QUEUE);
 
-int getMax(int *array, int n) {
-  int max = array[0];
-  for (int i = 1; i < n; i++)
-    if (array[i] > max)
-      max = array[i];
-  return max;
-}
+int find_max_significant(TYPE [], int);
+void radix_sort(TYPE [], int);
+void print_array(TYPE [], int);
 
-// Using counting sort to sort the elements in the basis of significant places
-void countingSort(int *array, int size, int place) {
-  int output[size + 1];
-  int max = (array[0] / place) % 10;
-
-  for (int i = 1; i < size; i++) {
-    if (((array[i] / place) % 10) > max)
-      max = array[i];
-  }
-  int count[max + 1];
-
-  for (int i = 0; i < max; ++i)
-    count[i] = 0;
-
-  // Calculate count of elements
-  for (int i = 0; i < size; i++)
-    count[(array[i] / place) % 10]++;
-    
-  // Calculate cumulative count
-  for (int i = 1; i < 10; i++)
-    count[i] += count[i - 1];
-
-  // Place the elements in sorted order
-  for (int i = size - 1; i >= 0; i--) {
-    output[count[(array[i] / place) % 10] - 1] = array[i];
-    count[(array[i] / place) % 10]--;
-  }
-
-  for (int i = 0; i < size; i++)
-    array[i] = output[i];
-}
-
-// Main function to implement radix sort
-void radixsort(int *array, int size) {
-  // Get maximum element
-  int max = getMax(array, size);
-
-  // Apply counting sort to sort elements based on place value.
-  for (int place = 1; max / place > 0; place *= 10)
-    countingSort(array, size, place);
-}
-
-void arrToSting(int *a,int n){
-    int i;
-    for(i = 0; i<n; i++){
-        printf("%d, ",*(a+i));
-    }
-    printf("\n\n");
-}
 int main(){
 
-    clock_t start, end;
+	clock_t start, end;
     double executionTime;
-    int size = 1000000;
-    int* a = (int*) malloc(size*sizeof(int));
-    int i;
+	int size = 100000000;
+	TYPE *a = (int*) malloc(size*sizeof(int));
     printf("Data Set Size: %d\n",size);
 
-    for(i = 0; i<size; i++){
-        *(a + i) = rand();
+	for(int i = 0; i<size; i++){
+        a[i] = rand();
     }
-    
+	
+	/* printf("Unsorted: ");
+	print_array(a, size); */
+
     start = clock();
-    radixsort(a,size);
+	radix_sort(a, size);
     end = clock();
-    free(a);
-
-    executionTime = ((double) (end - start)) / CLOCKS_PER_SEC;
+	free(a);
+	
+	/* printf("Sorted: ");
+	print_array(a, size); */
+	executionTime = (((double) (end - start)) / CLOCKS_PER_SEC)*1000;
     printf("Execution Time: %f\n",executionTime);
+	
+	return EXIT_SUCCESS;
+}
 
-    return 0;
+void radix_sort(TYPE a[], int length){
+	QUEUE buckets[MAX_BUCKETS]; // buckets for 0, 1, 2, ... 9 significant digits
+	int i, j;
+	for(i = 0; i < MAX_BUCKETS; i++)
+		init_queue(&buckets[i]);
+	
+	int k = find_max_significant(a, length);
+	int m = 10, n = 1, p;
+	
+	for(i = 0; i < k; i++){
+		for(j = 0; j < length; j++){
+			inqueue(&buckets[((int)a[j]%m)/n], a[j]);
+		}
+		for(p = 0, j = 0; j < MAX_BUCKETS; j++){
+			while(!is_empty(buckets[j])) {
+				a[p++] = dequeue(&buckets[j]); 
+				//first a[p] = ... is done and then p++ afterwards.
+			}
+		}
+		n*=10;
+		m*=10;
+	}
+}
 
+void init_queue(QUEUE *pque){
+	pque->pbegin = pque->pend = NULL;
+} 
+NODE *make_node(TYPE inf){
+	NODE *pnew = malloc(sizeof(NODE));
+	if(pnew == NULL){
+		puts("ERROR: Out of RAM!");
+		exit(4);
+	}
+	pnew->inf = inf;
+	pnew->pnext = NULL;
+	return pnew;
+}
+void inqueue(QUEUE *pque, TYPE inf){
+	NODE *pnew = make_node(inf);
+	
+	/*This would mean that my queue is empty*/
+	if(pque->pbegin == NULL) {
+		pque->pbegin = pque->pend = pnew;
+	}
+	else {
+		pque->pend->pnext = pnew;
+		pque->pend = pnew;
+	}
+}
+TYPE dequeue(QUEUE *pque) {
+	NODE *ptemp = pque->pbegin;	
+	if(ptemp == NULL) {
+		puts("ERROR: You tried to dequeue an empty queue.");
+		exit(5);
+	}
+	TYPE x;
+	
+	/*If below means that they are on last element (ex. pbegin--- 36 
+																								/
+																							pend    )*/
+	if(pque->pbegin == pque->pend) pque->pend = pque->pbegin = NULL;
+	else pque->pbegin = ptemp->pnext;
+	x = ptemp->inf;
+	
+	free(ptemp);
+	return x;
+	
+}
+/*returns 1 if it is and 0 if it isn't*/
+int is_empty(QUEUE pque) {
+	if(pque.pbegin == NULL) return 1;
+	else return 0;
+}
+int find_max_significant(TYPE a[], int length){
+	int i = 0; 
+	TYPE max = a[0];
+	
+	while(++i < length) {
+		if(a[i] > max) max = a[i];
+	}
+	int nb_digits = 0;
+	while(max != 0) {
+		++nb_digits;
+		max = (int)max / 10;
+	}
+	return nb_digits;
+}
+
+void print_array(TYPE a[], int length){
+	int i = 0;
+	putchar('[');
+	do {
+		if(i > 0) printf(", ");
+		printf("%d", a[i]); 
+	} while(++i < length);
+	puts("]");
 }

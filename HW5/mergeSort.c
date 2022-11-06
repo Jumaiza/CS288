@@ -81,7 +81,7 @@ int main(){
     end = clock();
     free(a);
 
-    executionTime = ((double) (end - start)) / CLOCKS_PER_SEC;
+    executionTime = (((double) (end - start)) / CLOCKS_PER_SEC)*1000;
     printf("Execution Time: %f\n",executionTime);
 
     return 0;
