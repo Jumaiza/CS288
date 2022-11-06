@@ -4,8 +4,7 @@
 
 #include <stdio.h>
 
-// Function to get the largest element from an array
-int getMax(int array[], int n) {
+int getMax(int *array, int n) {
   int max = array[0];
   for (int i = 1; i < n; i++)
     if (array[i] > max)
@@ -14,40 +13,39 @@ int getMax(int array[], int n) {
 }
 
 // Using counting sort to sort the elements in the basis of significant places
-void countingSort(int array[], int size, int place) {
+void countingSort(int *array, int size, int place) {
   int output[size + 1];
   int max = (array[0] / place) % 10;
-  int i, j, k, l, m, n;
 
-  for (i = 1; i < size; i++) {
+  for (int i = 1; i < size; i++) {
     if (((array[i] / place) % 10) > max)
       max = array[i];
   }
   int count[max + 1];
 
-  for (j = 0; j < max; ++j)
-    count[j] = 0;
+  for (int i = 0; i < max; ++i)
+    count[i] = 0;
 
   // Calculate count of elements
-  for (k = 0; k < size; k++)
-    count[(array[k] / place) % 10]++;
+  for (int i = 0; i < size; i++)
+    count[(array[i] / place) % 10]++;
     
   // Calculate cumulative count
-  for (l = 1; l < 10; l++)
-    count[l] += count[l - 1];
+  for (int i = 1; i < 10; i++)
+    count[i] += count[i - 1];
 
   // Place the elements in sorted order
-  for (m = size - 1; m >= 0; m--) {
-    output[count[(array[m] / place) % 10] - 1] = array[m];
-    count[(array[m] / place) % 10]--;
+  for (int i = size - 1; i >= 0; i--) {
+    output[count[(array[i] / place) % 10] - 1] = array[i];
+    count[(array[i] / place) % 10]--;
   }
 
-  for (n = 0; n < size; n++)
-    array[n] = output[n];
+  for (int i = 0; i < size; i++)
+    array[i] = output[i];
 }
 
 // Main function to implement radix sort
-void radixsort(int array[], int size) {
+void radixsort(int *array, int size) {
   // Get maximum element
   int max = getMax(array, size);
 
