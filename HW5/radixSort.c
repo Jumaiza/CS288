@@ -27,7 +27,7 @@ int main(){
 
 	clock_t start, end;
     double executionTime;
-	int size = 100000000;
+	int size = 10000000;
 	TYPE *a = (int*) malloc(size*sizeof(int));
     printf("Data Set Size: %d\n",size);
 

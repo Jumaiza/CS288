@@ -40,7 +40,7 @@ int main(){
 
     clock_t start, end;
     double executionTime;
-    int size = 10;
+    int size = 1000000;
     int* a = (int*) malloc(size*sizeof(int));
     int i;
     printf("Data Set Size: %d\n",size);
