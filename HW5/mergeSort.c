@@ -67,7 +67,7 @@ int main(){
 
     clock_t start, end;
     double executionTime;
-    int size = 10000000;
+    int size = 10;
     int* a = (int*) malloc(size*sizeof(int));
     int i;
     printf("Data Set Size: %d\n",size);
@@ -81,7 +81,7 @@ int main(){
     end = clock();
     free(a);
 
-    executionTime = (((double) (end - start)) / CLOCKS_PER_SEC)*1000;
+    executionTime = 1000*(((double) (end - start)) / CLOCKS_PER_SEC);
     printf("Execution Time: %f\n",executionTime);
 
     return 0;
