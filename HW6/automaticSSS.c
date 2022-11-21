@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
         {"|", " o ", "---", "---", " o ", "---", "---", " o ", "|"},
         {"|", " o ", " o ", " o ", " o ", " o ", " o ", " o ", "|"},
         {"|", " o ", " |-", "---", " o ", "---", "-| ", " o ", "|"},
-        {"|", " o ", " | ", " o ", " P ", " o ", " | ", " o ", "|"},
+        {"|", " o ", " | ", " o ", "PAC", " o ", " | ", " o ", "|"},
         {"+", "---", "---", "---", "---", "---", "---", "---", "+"}};
     int PY = 5;
     int PX = 4;
@@ -30,28 +30,28 @@ int main(int argc, char *argv[])
         if (strcmp(game[PY - 1][PX], " o ") == 0)
         {
             game[PY][PX] = "   ";
-            game[PY - 1][PX] = " P ";
+            game[PY - 1][PX] = "PAC";
             PY = PY - 1;
         }
         // East
         else if (strcmp(game[PY][PX + 1], " o ") == 0)
         {
             game[PY][PX] = "   ";
-            game[PY][PX + 1] = " P ";
+            game[PY][PX + 1] = "PAC";
             PX = PX + 1;
         }
         // South
         else if (strcmp(game[PY + 1][PX], " o ") == 0)
         {
             game[PY][PX] = "   ";
-            game[PY + 1][PX] = " P ";
+            game[PY + 1][PX] = "PAC";
             PY = PY + 1;
         }
         // West
         else if (strcmp(game[PY][PX - 1], " o ") == 0)
         {
             game[PY][PX] = "   ";
-            game[PY][PX - 1] = " P ";
+            game[PY][PX - 1] = "PAC";
             PX = PX - 1;
         }
         else{

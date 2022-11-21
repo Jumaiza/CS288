@@ -2,9 +2,9 @@ N
 N
 N
 N
-E
-E
-E
+W
+W
+W
 S
 S
 S
