@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$1" == "vividracingCopy.txt" ]
+if [ "$1" == "vividtest.txt" ]
 then
     if [ -f $1 ]
     then
@@ -13,5 +13,10 @@ then
         do
             java -jar tagsoup-1.2.1.jar --files $file
         done
+
+        python3 parser.py vivid
+
+        # rm -rf *.html
+        # rm -rf *.xhtml
     fi
 fi
