@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$1" == "vividtest.txt" ]
+if [ "$1" == "vivid.txt" ] && [ "$2" == "lmp.txt" ]
 then
     if [ -f $1 ]
     then
@@ -8,15 +8,60 @@ then
         for website in $lines
         do
             wget $website
+            htmlFileName=`find . -name "*.html"`
+            java -jar tagsoup-1.2.1.jar --files $htmlFileName
+            rm -rf *.html
+            xhtmlFileName=`find . -name "*.xhtml"`
+            python3 parser.py vivid $xhtmlFileName
+            rm -rf *.xhtml
         done
-        for file in `find . -name "*.html"`
+    fi
+
+    if [ -f $2 ]
+    then
+        lines=$(cat $2)
+        for website in $lines
         do
-            java -jar tagsoup-1.2.1.jar --files $file
+            wget $website
+            htmlFileName=`find . -name "*.html"`
+            java -jar tagsoup-1.2.1.jar --files $htmlFileName
+            rm -rf *.html
+            xhtmlFileName=`find . -name "*.xhtml"`
+            python3 parser.py lmp $xhtmlFileName
+            rm -rf *.xhtml
         done
+    fi
+fi
 
-        python3 parser.py vivid
+if [ "$2" == "vivid.txt" ] && [ "$1" == "lmp.txt"]
+then
+    if [ -f $1 ]
+    then
+        lines=$(cat $1)
+        for website in $lines
+        do
+            wget $website
+            htmlFileName=`find . -name "*.html"`
+            java -jar tagsoup-1.2.1.jar --files $htmlFileName
+            rm -rf *.html
+            xhtmlFileName=`find . -name "*.xhtml"`
+            python3 parser.py lmp $xhtmlFileName
+            rm -rf *.xhtml
+        done
+    fi
 
-        # rm -rf *.html
-        # rm -rf *.xhtml
+    if [ -f $2 ]
+    then
+        lines=$(cat $2)
+        for website in $lines
+        do
+            wget $website
+            htmlFileName=`find . -name "*.html"`
+            java -jar tagsoup-1.2.1.jar --files $htmlFileName
+            rm -rf *.html
+            xhtmlFileName=`find . -name "*.xhtml"`
+            python3 parser.py vivid $xhtmlFileName
+            rm -rf *.xhtml
+        done
     fi
 fi
