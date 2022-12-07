@@ -111,6 +111,7 @@ if sys.argv[1] == "lmp":
     for imgTag in imgTags:
         if imgTag.getAttribute('id') == "imgDisp":
             RemImgUrl = imgTag.getAttribute('src')
+            break
 
     LocImgUrl = "/Images/"+sku+".jpg"
 
