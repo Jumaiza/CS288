@@ -2,19 +2,20 @@ import sys
 import mysql.connector
 import xml.dom.minidom as domApi
 
-# def insert(cursor,vendor):
-#     query = 'INSERT INTO '+vendor'(SKU,ProductName,ProductDesc,ProductPrice,RemImgUrl,LocImgUrl,ReviewScore) VALUES (%s,%s,%s)'
-#     cursor.execute(query, ('0385514239','Origin',2995))
-
-# def update(cursor):
-#     query = 'UPDATE book SET price=%s WHERE isbn=%s'
-#     cursor.execute(query, (29.95,'0385514239'))
 try:
-    cnx = mysql.connector.connect(host='localhost', user='root', password='cs288', database='cs288')
+    cnx = mysql.connector.connect(host='localhost', user='root', password='Cs288005!', database='cs288')
     cursor = cnx.cursor()
-    cursor.close()
+    # cursor.close()
 except mysql.connector.Error as err:
     print(err)
+
+def insert(cursor,vendor,sku,name,description,price,RemImgUrl,LocImgUrl,reviewScore):
+    query = 'INSERT INTO '+vendor+'(SKU,ProductName,ProductDesc,ProductPrice,RemImgUrl,LocImgUrl,ReviewScore) VALUES (%s,%s,%s,%s,%s,%s,%s)'
+    cursor.execute(query, (sku,name,description,price,RemImgUrl,LocImgUrl,reviewScore))
+
+def update(cursor,vendor,sku,name,description,price,RemImgUrl,LocImgUrl,reviewScore):
+    query = 'UPDATE '+vendor+' SET `ProductName`=%s,`ProductDesc`=%s,`ProductPrice`=%s,`RemImgUrl`=%s,`LocImgUrl`=%s,`ReviewScore`=%s WHERE SKU = %s'
+    cursor.execute(query, (name,description,price,RemImgUrl,LocImgUrl,reviewScore,sku))
 
 if sys.argv[1] == "vivid":
 
@@ -59,22 +60,31 @@ if sys.argv[1] == "vivid":
         price = priceElement.childNodes[0].nodeValue
         price = price.replace('Sale:$','')
         price = price.replace(',','')
-    
+        
+    price = float(price)
     print("Price:",price)
 
-    link = ""
+    RemImgUrl = ""
     aTags = doc.getElementsByTagName("a")
     for aTag in aTags:
         if aTag.getAttribute('title')[:13] == "Product Image":
-            link = aTag.getAttribute('href')
+            RemImgUrl = aTag.getAttribute('href')
             break
 
-    print("Remote Image URL:",link)
+    print("Remote Image URL:",RemImgUrl)
 
-    print("Local Image URL:",("/Images/"+sku+".jpg"))
+    LocImgUrl = "/Images/"+sku+".jpg"
+    print("Local Image URL:",LocImgUrl)
 
     reviewScore = 0.0
     print("Review Score:",reviewScore)
+
+    if sys.argv[3] == "insert":
+        insert(cursor,'vivid',sku,name,description,price,RemImgUrl,LocImgUrl,reviewScore)
+        cnx.commit()
+    elif sys.argv[3] == "update":
+        update(cursor,'vivid',sku,name,description,price,RemImgUrl,LocImgUrl,reviewScore)
+        cnx.commit()
 
 if sys.argv[1] == "lmp":
 
@@ -100,7 +110,6 @@ if sys.argv[1] == "lmp":
             break
     print("Product Description:",description)
 
-
     spanTags = doc.getElementsByTagName("span")
     price = ""
     for spanTag in spanTags:
@@ -110,18 +119,30 @@ if sys.argv[1] == "lmp":
             price = price.replace('$','')
             price = price.replace(',','')
             break
+
+    price = float(price)
     print("Price:",price)
 
-    link = ""
+    RemImgUrl = ""
     imgTags = doc.getElementsByTagName("img")
     for imgTag in imgTags:
         if imgTag.getAttribute('id') == "imgDisp":
-            link = imgTag.getAttribute('src')
+            RemImgUrl = imgTag.getAttribute('src')
 
-    print("Remote Image URL:",link)
+    print("Remote Image URL:",RemImgUrl)
 
-    print("Local Image URL:",("/Images/"+sku+".jpg"))
+    LocImgUrl = "/Images/"+sku+".jpg"
+    print("Local Image URL:",LocImgUrl)
 
     reviewScore = 0.0
     print("Review Score:",reviewScore)
 
+    if sys.argv[3] == "insert":
+        insert(cursor,'lmp',sku,name,description,price,RemImgUrl,LocImgUrl,reviewScore)
+        cnx.commit()
+    elif sys.argv[3] == "update":
+        update(cursor,'lmp',sku,name,description,price,RemImgUrl,LocImgUrl,reviewScore)
+        cnx.commit()
+
+cursor.close()
+cnx.close()
