@@ -8,10 +8,10 @@ then
         wget $website
         htmlFileName=`find . -maxdepth 1 -name "*.html"`
         java -jar tagsoup-1.2.1.jar --files $htmlFileName
-        rm -rf *.html
+        rm -f *.html
         xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
         python3 parser.py vivid $xhtmlFileName insert
-        rm -rf *.xhtml
+        rm -f *.xhtml
     done
     lines=$(cat $2)
     for website in $lines
@@ -19,10 +19,10 @@ then
         wget $website
         htmlFileName=`find . -maxdepth 1 -name "*.html"`
         java -jar tagsoup-1.2.1.jar --files $htmlFileName
-        rm -rf *.html
+        rm -f *.html
         xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
         python3 parser.py lmp $xhtmlFileName insert
-        rm -rf *.xhtml
+        rm -f *.xhtml
     done
 
     SLEEP_TIME=15s
@@ -37,10 +37,10 @@ then
             wget $website
             htmlFileName=`find . -maxdepth 1 -name "*.html"`
             java -jar tagsoup-1.2.1.jar --files $htmlFileName
-            rm -rf *.html
+            rm -f *.html
             xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
             python3 parser.py vivid $xhtmlFileName update
-            rm -rf *.xhtml
+            rm -f *.xhtml
         done
         lines=$(cat $2)
         for website in $lines
@@ -48,10 +48,10 @@ then
             wget $website
             htmlFileName=`find . -maxdepth 1 -name "*.html"`
             java -jar tagsoup-1.2.1.jar --files $htmlFileName
-            rm -rf *.html
+            rm -f *.html
             xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
             python3 parser.py lmp $xhtmlFileName update
-            rm -rf *.xhtml
+            rm -f *.xhtml
         done
     done
 
@@ -65,10 +65,10 @@ then
         wget $website
         htmlFileName=`find . -maxdepth 1 -name "*.html"`
         java -jar tagsoup-1.2.1.jar --files $htmlFileName
-        rm -rf *.html
+        rm -f *.html
         xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
         python3 parser.py lmp $xhtmlFileName insert
-        rm -rf *.xhtml
+        rm -f *.xhtml
     done
     lines=$(cat $2)
     for website in $lines
@@ -76,10 +76,10 @@ then
         wget $website
         htmlFileName=`find . -maxdepth 1 -name "*.html"`
         java -jar tagsoup-1.2.1.jar --files $htmlFileName
-        rm -rf *.html
+        rm -f *.html
         xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
         python3 parser.py vivid $xhtmlFileName insert
-        rm -rf *.xhtml
+        rm -f *.xhtml
     done
 
     SLEEP_TIME=15s
@@ -94,10 +94,10 @@ then
             wget $website
             htmlFileName=`find . -maxdepth 1 -name "*.html"`
             java -jar tagsoup-1.2.1.jar --files $htmlFileName
-            rm -rf *.html
+            rm -f *.html
             xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
             python3 parser.py lmp $xhtmlFileName update
-            rm -rf *.xhtml
+            rm -f *.xhtml
         done
         lines=$(cat $2)
         for website in $lines
@@ -105,10 +105,10 @@ then
             wget $website
             htmlFileName=`find . -maxdepth 1 -name "*.html"`
             java -jar tagsoup-1.2.1.jar --files $htmlFileName
-            rm -rf *.html
+            rm -f *.html
             xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
             python3 parser.py vivid $xhtmlFileName update
-            rm -rf *.xhtml
+            rm -f *.xhtml
         done
     done
 fi
