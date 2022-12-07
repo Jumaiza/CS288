@@ -63,7 +63,7 @@ if sys.argv[1] == "vivid":
             RemImgUrl = aTag.getAttribute('href')
             break
 
-    LocImgUrl = "/Images/"+sku+".jpg"
+    LocImgUrl = "/Images/vivid/"+sku+"_vivid.jpg"
 
     reviewScore = 0.0
 
@@ -113,7 +113,7 @@ if sys.argv[1] == "lmp":
             RemImgUrl = imgTag.getAttribute('src')
             break
 
-    LocImgUrl = "/Images/"+sku+".jpg"
+    LocImgUrl = "/Images/lmp/"+sku+"_lmp.jpg"
 
     reviewScore = 0.0
 

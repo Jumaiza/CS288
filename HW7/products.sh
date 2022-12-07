@@ -25,9 +25,10 @@ then
         rm -rf *.xhtml
     done
 
-    SLEEP_TIME=15s
+    SLEEP_TIME=6h
     while true; do
 
+        echo "Sleeping for 6 hours...."
         sleep $SLEEP_TIME
 
         lines=$(cat $1)
@@ -81,9 +82,10 @@ then
         rm -rf *.xhtml
     done
 
-    SLEEP_TIME=15s
+    SLEEP_TIME=6h
     while true; do
 
+        echo "Sleeping for 6 hours...."
         sleep $SLEEP_TIME
 
         lines=$(cat $1)

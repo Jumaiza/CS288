@@ -38,4 +38,7 @@ if ($result === TRUE) {
     echo '<button onclick="location.href=\'main.php\';">Go to home page</button>';
   }
 
+
+mysqli_close($conn);
+
 ?>

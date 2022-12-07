@@ -15,7 +15,7 @@ $query = "SELECT * FROM vivid";
 $result = mysqli_query($conn, $query);
 
 echo "<h1>CLICK THE IMAGE TO BUY YOUR PRODUCT!</h1>";
-echo "<h2>VIVID RACING</h2>";
+echo "<h2 style='color: red;'>VIVID RACING</h2>";
 while ($row = mysqli_fetch_assoc($result)) {
     $sku = $row["SKU"];
     $name = $row["ProductName"];
@@ -23,13 +23,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     echo "<h3 id=$sku>$name</h3>";
     echo "<a href='comparison.php?id=" . $sku . "'><img src='" . $image. "' /></a>";
-    // echo "<form action='comparison.php' method='post'> <input type='image' src=$image name='product_click' id=$sku></form>";
 }
 
 $query = "SELECT * FROM lmp";
 $result = mysqli_query($conn, $query);
 
-echo "<h2>LMPerformance</h2>";
+echo "<h2 style='color: red;'>LMPerformance</h2>";
 while ($row = mysqli_fetch_assoc($result)) {
     $sku = $row["SKU"];
     $name = $row["ProductName"];
@@ -37,8 +36,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     echo "<h3 id=$sku>$name</h3>";
     echo "<a href='comparison.php?id=" . $sku . "'><img src='" . $image. "' /></a>";
-    // echo "<form action='comparison.php' method='post'> <input type='image' src=$image name='product_click' id=$sku></form>";
 }
 
 mysqli_close($conn);
+
+?>
 
