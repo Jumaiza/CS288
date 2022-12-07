@@ -32,10 +32,10 @@ $result = mysqli_query($conn, $query);
 
 if ($result === TRUE) {
     echo "<h3 style='color: green;'>Thank you for your purchase! Click below to go to home page.</h3>";
-    echo '<button onclick="location.href=\'main.php\';">Go to home page</button>';
+    echo '<button onclick="location.href=\'index.php\';">Go to home page</button>';
   } else {
     echo "<h3 style='color: red;'>Order unsuccesful. Please fix your information and try again! Click below to go to home page.</h3>";
-    echo '<button onclick="location.href=\'main.php\';">Go to home page</button>';
+    echo '<button onclick="location.href=\'index.php\';">Go to home page</button>';
   }
 
 

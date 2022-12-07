@@ -15,27 +15,34 @@ $query = "SELECT * FROM vivid";
 $result = mysqli_query($conn, $query);
 
 echo "<h1>CLICK THE IMAGE TO BUY YOUR PRODUCT!</h1>";
-echo "<h2 style='color: red;'>VIVID RACING</h2>";
+echo "<h1 style='color: red; text-align:center;'>VIVID RACING</h1>";
 while ($row = mysqli_fetch_assoc($result)) {
     $sku = $row["SKU"];
     $name = $row["ProductName"];
     $image = $row["RemImgUrl"];
 
-    echo "<h3 id=$sku>$name</h3>";
-    echo "<a href='comparison.php?id=" . $sku . "'><img src='" . $image. "' /></a>";
+    echo "<div style='border: 1px solid black'>";
+    echo "<h3 id=$sku style='text-align: center;'>$name</h3>";
+    echo "<a href='comparison.php?id=" . $sku . "'><img style='margin:auto; display:block;' src='" . $image. "' /></a>";
+    echo "</div>";
+    echo "<br>";
 }
 
 $query = "SELECT * FROM lmp";
 $result = mysqli_query($conn, $query);
 
-echo "<h2 style='color: red;'>LMPerformance</h2>";
+echo "<br>";
+echo "<h1 style='color: red; text-align:center;'>LMPerformance</h1>";
 while ($row = mysqli_fetch_assoc($result)) {
     $sku = $row["SKU"];
     $name = $row["ProductName"];
     $image = $row["RemImgUrl"];
 
-    echo "<h3 id=$sku>$name</h3>";
-    echo "<a href='comparison.php?id=" . $sku . "'><img src='" . $image. "' /></a>";
+    echo "<div style='border: 1px solid black'>";
+    echo "<h3 id=$sku style='text-align: center;'>$name</h3>";
+    echo "<a href='comparison.php?id=" . $sku . "'><img style='margin:auto; display:block;' src='" . $image. "' /></a>";
+    echo "</div>";
+    echo "<br>";
 }
 
 mysqli_close($conn);

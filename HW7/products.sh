@@ -6,10 +6,10 @@ then
     for website in $lines
     do
         wget $website
-        htmlFileName=`find . -name "*.html"`
+        htmlFileName=`find . -maxdepth 1 -name "*.html"`
         java -jar tagsoup-1.2.1.jar --files $htmlFileName
         rm -rf *.html
-        xhtmlFileName=`find . -name "*.xhtml"`
+        xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
         python3 parser.py vivid $xhtmlFileName insert
         rm -rf *.xhtml
     done
@@ -17,15 +17,15 @@ then
     for website in $lines
     do
         wget $website
-        htmlFileName=`find . -name "*.html"`
+        htmlFileName=`find . -maxdepth 1 -name "*.html"`
         java -jar tagsoup-1.2.1.jar --files $htmlFileName
         rm -rf *.html
-        xhtmlFileName=`find . -name "*.xhtml"`
+        xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
         python3 parser.py lmp $xhtmlFileName insert
         rm -rf *.xhtml
     done
 
-    SLEEP_TIME=6h
+    SLEEP_TIME=15s
     while true; do
 
         echo "Sleeping for 6 hours...."
@@ -35,10 +35,10 @@ then
         for website in $lines
         do
             wget $website
-            htmlFileName=`find . -name "*.html"`
+            htmlFileName=`find . -maxdepth 1 -name "*.html"`
             java -jar tagsoup-1.2.1.jar --files $htmlFileName
             rm -rf *.html
-            xhtmlFileName=`find . -name "*.xhtml"`
+            xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
             python3 parser.py vivid $xhtmlFileName update
             rm -rf *.xhtml
         done
@@ -46,10 +46,10 @@ then
         for website in $lines
         do
             wget $website
-            htmlFileName=`find . -name "*.html"`
+            htmlFileName=`find . -maxdepth 1 -name "*.html"`
             java -jar tagsoup-1.2.1.jar --files $htmlFileName
             rm -rf *.html
-            xhtmlFileName=`find . -name "*.xhtml"`
+            xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
             python3 parser.py lmp $xhtmlFileName update
             rm -rf *.xhtml
         done
@@ -57,16 +57,16 @@ then
 
 fi
 
-if [ "$2" == "vivid.txt" ] && [ "$1" == "lmp.txt"]
+if [ "$2" == "vivid.txt" ] && [ "$1" == "lmp.txt" ]
 then
     lines=$(cat $1)
     for website in $lines
     do
         wget $website
-        htmlFileName=`find . -name "*.html"`
+        htmlFileName=`find . -maxdepth 1 -name "*.html"`
         java -jar tagsoup-1.2.1.jar --files $htmlFileName
         rm -rf *.html
-        xhtmlFileName=`find . -name "*.xhtml"`
+        xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
         python3 parser.py lmp $xhtmlFileName insert
         rm -rf *.xhtml
     done
@@ -74,15 +74,15 @@ then
     for website in $lines
     do
         wget $website
-        htmlFileName=`find . -name "*.html"`
+        htmlFileName=`find . -maxdepth 1 -name "*.html"`
         java -jar tagsoup-1.2.1.jar --files $htmlFileName
         rm -rf *.html
-        xhtmlFileName=`find . -name "*.xhtml"`
+        xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
         python3 parser.py vivid $xhtmlFileName insert
         rm -rf *.xhtml
     done
 
-    SLEEP_TIME=6h
+    SLEEP_TIME=15s
     while true; do
 
         echo "Sleeping for 6 hours...."
@@ -92,10 +92,10 @@ then
         for website in $lines
         do
             wget $website
-            htmlFileName=`find . -name "*.html"`
+            htmlFileName=`find . -maxdepth 1 -name "*.html"`
             java -jar tagsoup-1.2.1.jar --files $htmlFileName
             rm -rf *.html
-            xhtmlFileName=`find . -name "*.xhtml"`
+            xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
             python3 parser.py lmp $xhtmlFileName update
             rm -rf *.xhtml
         done
@@ -103,10 +103,10 @@ then
         for website in $lines
         do
             wget $website
-            htmlFileName=`find . -name "*.html"`
+            htmlFileName=`find . -maxdepth 1 -name "*.html"`
             java -jar tagsoup-1.2.1.jar --files $htmlFileName
             rm -rf *.html
-            xhtmlFileName=`find . -name "*.xhtml"`
+            xhtmlFileName=`find . -maxdepth 1 -name "*.xhtml"`
             python3 parser.py vivid $xhtmlFileName update
             rm -rf *.xhtml
         done
