@@ -47,7 +47,7 @@ echo "<form action='transaction.php' method='POST'>
 <label for='cvv'>CVV:</label><br>
 <input type='text' id='cvv' name='cvv'><br>
 <br>
-<input type='submit' id='submit' value ='Complete Purchase'>
+<input style='width: 250px; height: 50px; font-size:20px' type='submit' id='submit' value ='Complete Purchase'>
 </form>"
 
 ?>

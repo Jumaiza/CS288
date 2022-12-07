@@ -51,7 +51,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
     echo "<p>$description</p>";
     echo "<p>Review Rating: $score</p>";
-    echo "<form action='checkout.php' method='POST'> <button type='submit' name='vivid'>Buy Now!</button></form>";
+    echo "<form action='checkout.php' method='POST'> <button style='width: 150px; height: 50px; font-size:20px' type='submit' name='vivid'>Buy Now!</button></form>";
     echo "<br></br>";
     
 }
@@ -79,7 +79,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
     echo "<p>$description</p>";
     echo "<p>Review Rating: $score</p>";
-    echo "<form action='checkout.php' method='POST'> <button type='submit' name='lmp'>Buy Now!</button></form>";
+    echo "<form action='checkout.php' method='POST'> <button style='width: 150px; height: 50px; font-size:20px' type='submit' name='lmp'>Buy Now!</button></form>";
     echo "<br></br>";
     
 }
