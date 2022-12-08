@@ -2,6 +2,8 @@
 
 session_start();
 
+echo "<h1>Checkout Page</h1>";
+
 if (isset($_POST['vivid'])) {
     $price = $_SESSION['vividPrice'];
     $_SESSION["price"] = $price;
@@ -20,7 +22,6 @@ if (isset($_POST['vivid'])) {
 
 $_SESSION["skuTransaction"] = $_SESSION["sku"];
 
-echo "<h1>Checkout Page</h1>";
 
 echo "<form action='transaction.php' method='POST'>
 <label for='name'>Full Name:</label><br>

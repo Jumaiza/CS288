@@ -40,6 +40,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $image = $row["RemImgUrl"];
     $score = $row["ReviewScore"];
 
+    echo "<div style='display: flex; width: 50%;'>";
+    echo "<div style='border: 2px solid black; flex: 1;'>";
     echo "<h3 id=$sku>$name</h3>";
     if ($lmpPrice>$vividPrice){
         echo "<h3 style='border: 3px solid green;'>Price: $$vividPrice</h3>";
@@ -52,7 +54,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo "<p>$description</p>";
     echo "<p>Review Rating: $score</p>";
     echo "<form action='checkout.php' method='POST'> <button style='width: 150px; height: 50px; font-size:20px' type='submit' name='vivid'>Buy Now!</button></form>";
-    echo "<br></br>";
+    echo "</div>";
     
 }
 
@@ -68,6 +70,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $image = $row["RemImgUrl"];
     $score = $row["ReviewScore"];
 
+    echo "<div style='border: 2px solid black; flex: 1; text-align: center;'>";
     echo "<h3 id=$sku>$name</h3>";
     if ($lmpPrice<$vividPrice){
         echo "<h3 style='border: 3px solid green;'>Price: $$lmpPrice</h3>";
@@ -80,7 +83,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo "<p>$description</p>";
     echo "<p>Review Rating: $score</p>";
     echo "<form action='checkout.php' method='POST'> <button style='width: 150px; height: 50px; font-size:20px' type='submit' name='lmp'>Buy Now!</button></form>";
-    echo "<br></br>";
+    echo "</div>";
+    echo "</div>";
     
 }
 
