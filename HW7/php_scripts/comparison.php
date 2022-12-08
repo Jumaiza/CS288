@@ -40,8 +40,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $image = $row["RemImgUrl"];
     $score = $row["ReviewScore"];
 
-    echo "<div style='display: flex; width: 50%;'>";
-    echo "<div style='border: 2px solid black; flex: 1;'>";
+    echo "<div style='display: flex; margin: 0 auto;'>";
+    echo "<div style='border: 2px solid black; flex: 1; text-align: center;'>";
     echo "<h3 id=$sku>$name</h3>";
     if ($lmpPrice>$vividPrice){
         echo "<h3 style='border: 3px solid green;'>Price: $$vividPrice</h3>";

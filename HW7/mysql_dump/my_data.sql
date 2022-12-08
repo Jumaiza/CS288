@@ -31,7 +31,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
-INSERT INTO `transactions` VALUES ('2022-12-07 05:42:29','HD14BMWF80-OE',1234.20,'dasdaasd','59 sowers dr','hackettstown','nj','07840','4564524813246985','12/23',445),('2022-12-07 05:45:01','50474-6',342.44,'zaid abujumiza','59 sowers dr','hackettstown','nj','07840','4564524813246985','5/23',255),('2022-12-07 05:51:45','WCF100717',72.56,'zaid abujumiza','aSD','hackettstown','nj','07840','4564524813246985','12/23',255),('2022-12-07 13:13:36','S90-7-20-036',177.10,'zaid','59 sowers dr','hackettstown','nj','07840','4564524813246985','12/23',223);
+INSERT INTO `transactions` VALUES ('2022-12-07 05:42:29','HD14BMWF80-OE',1234.20,'dasdaasd','59 sowers dr','hackettstown','nj','07840','4564524813246985','12/23',445),('2022-12-07 05:45:01','50474-6',342.44,'zaid abujumiza','59 sowers dr','hackettstown','nj','07840','4564524813246985','5/23',255),('2022-12-07 05:51:45','WCF100717',72.56,'zaid abujumiza','aSD','hackettstown','nj','07840','4564524813246985','12/23',255),('2022-12-07 13:13:36','S90-7-20-036',177.10,'zaid','59 sowers dr','hackettstown','nj','07840','4564524813246985','12/23',223),('2022-12-07 16:47:31','WCF100717',72.56,'asdasd','59 sowers dr','hackettstown','nj','07840','4564524813246985','12/23',445),('2022-12-07 22:20:45','83.B38.6Q00.71',4355.41,'dasdaasd','59 sowers dr','hackettstown','nj','07840','4564524813246985','5/23',445);
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-07 16:24:23
+-- Dump completed on 2022-12-07 22:55:20

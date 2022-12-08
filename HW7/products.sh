@@ -25,7 +25,7 @@ then
         rm -f *.xhtml
     done
 
-    SLEEP_TIME=15s
+    SLEEP_TIME=6h
     while true; do
 
         echo "Sleeping for 6 hours...."
@@ -82,7 +82,7 @@ then
         rm -f *.xhtml
     done
 
-    SLEEP_TIME=15s
+    SLEEP_TIME=6h
     while true; do
 
         echo "Sleeping for 6 hours...."
