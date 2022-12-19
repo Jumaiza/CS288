@@ -10,5 +10,6 @@
         "manualsss": "cpp",
         "cmath": "c",
         "atomic": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
